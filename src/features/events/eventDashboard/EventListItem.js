@@ -1,10 +1,20 @@
 import React from 'react';
 import { Button, Icon, Item, List, Segment } from 'semantic-ui-react';
+import { useEventContext } from '../../../context/EventContext';
 import EventListAttendee from './EventListAttendee';
 
 export default function EventListItem({ event }) {
-  const { title, date, attendees, description, city, hostedBy, hostPhotoURL } =
-    event;
+  const { viewEvent, deleteEvent } = useEventContext();
+  const {
+    title,
+    date,
+    attendees,
+    description,
+    city,
+    hostedBy,
+    hostPhotoURL,
+    id,
+  } = event;
   return (
     <Segment.Group>
       <Segment>
@@ -38,7 +48,18 @@ export default function EventListItem({ event }) {
       </Segment>
       <Segment clearing>
         <div>{description}</div>
-        <Button color='teal' floated='right' content='View' />
+        <Button
+          color='red'
+          floated='right'
+          content='Delete'
+          onClick={() => deleteEvent(id)}
+        />
+        <Button
+          color='teal'
+          floated='right'
+          content='View'
+          onClick={() => viewEvent(event)}
+        />
       </Segment>
     </Segment.Group>
   );
